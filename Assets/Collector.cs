@@ -10,6 +10,15 @@ public class Collector : MonoBehaviour
     {
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PizzaCount.instance.IncreaseCounter();
+            Destroy(gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

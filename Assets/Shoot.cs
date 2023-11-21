@@ -31,15 +31,20 @@ public class Shoot : MonoBehaviour
 
     void Fire()
     {
-            GameObject obj = Instantiate(bulletObj, bulletSpawner.transform.position, Quaternion.identity);
+        if(PizzaCount.instance.counterValue <= 0) return;
 
-            Vector3 shotDirection = Camera.main.transform.forward;
+        PizzaCount.instance.DecreaseCounter();
 
-            Rigidbody bulletRigbody = obj.GetComponent<Rigidbody>();
+        GameObject obj = Instantiate(bulletObj, bulletSpawner.transform.position, Quaternion.identity);
+        obj.transform.position += new Vector3(0f, 0.2f, 0f);
 
-            Quaternion targetRotation = Quaternion.LookRotation(shotDirection);
-            obj.transform.rotation = Quaternion.Euler(-90f, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z);
+        Vector3 shotDirection = Camera.main.transform.forward;
+
+        Rigidbody bulletRigbody = obj.GetComponent<Rigidbody>();
+
+        Quaternion targetRotation = Quaternion.LookRotation(shotDirection);
+        obj.transform.rotation = Quaternion.Euler(-90f, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z);
             
-            bulletRigbody.velocity = shotDirection * fireSpeed;
+        bulletRigbody.velocity = shotDirection * fireSpeed;
     }
 }
